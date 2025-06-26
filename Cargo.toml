@@ -1,0 +1,18 @@
+[package]
+name = "realtime_bpm_phase"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cpal = "0.15"
+rustfft = "6.0"
+realfft = "3.5"  # For real-input FFT (optional, I’ll show example with complex FFT)
+hound = "3"      # For reading WAV (for testing offline)
+anyhow = "1.0"
+
+
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = true
