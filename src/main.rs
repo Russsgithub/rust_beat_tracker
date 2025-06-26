@@ -41,7 +41,10 @@ fn mel_filters(
         ((freq / sample_rate as f32) * (fft_size as f32)) as usize
     };
 
-    let mut filters = vec![vec![0.0; fft_size / 2]; n_mels];
+    let mut filters = Vec::with_capacity(n_mels);
+    for _ in 0..n_mels {
+        filters.push(vec![0.0; fft_size / 2]);
+    }
 
     for m in 1..n_mels + 1 {
         let f_m_minus = bin_freq(hz_points[m - 1]).min(fft_size / 2 - 1);
@@ -95,7 +98,7 @@ impl BeatTracker {
             mel_filters,
             bpm_history: VecDeque::with_capacity(10),
             bpm_smoothed: None,
-            smoothing_alpha: 0.3,
+            smoothing_alpha: 0.8,
         }
     }
 
